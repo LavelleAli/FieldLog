@@ -1,6 +1,7 @@
+import { Turbine } from '@/data/Fleetdata'
 
 
-const AssessmentCards = ({ turbine }) => {
+const AssessmentCards = ({ turbine }: { turbine: Turbine})  => {
   function windTurbineData() {
     return (
       <div className="bg-blue-900/30 w-90 h-100 rounded-2xl mb-10 ">
@@ -14,7 +15,7 @@ const AssessmentCards = ({ turbine }) => {
 
         <div className="grid lg:grid-cols-3 text-sm text-center mt-4">
           <div>
-            Type: {turbine.type}
+            Type: {turbine?.type}
             <select name="type">
               <option value="">Select</option>
               <option value="electrical">Electrical</option>
@@ -24,7 +25,7 @@ const AssessmentCards = ({ turbine }) => {
           </div>
           <div className="flex flex-col">
             <label>
-              Status: {turbine.status}
+              Status: {turbine?.status}
               <select name="status">
                 <option value="">Select</option>
                 <option value="open">Open</option>
@@ -35,13 +36,13 @@ const AssessmentCards = ({ turbine }) => {
           </div>
           <div>
             <label>
-              Last Updated: {turbine.lastUpdated}
+              Last Updated: {turbine?.lastUpdated}
               <input type="date" name="reportedOn" />
             </label>
           </div>
           <div className="relative top-10 left-10 flex flex-col justify-center w-70">
             <label htmlFor="description">
-              Description: <div>{turbine.description}</div>
+              Description: <div>{turbine?.description}</div>
             </label>
             <textarea
               name="notes"

@@ -1,7 +1,17 @@
-const fieldData = [
+export interface Turbine{
+  id: number,
+  priority: "low" | "medium" | "high",
+  title: string,
+  type: "mechanical" | "hydraulic" | "electrical",
+  status: "open" | "in progress" | "resolved",
+  lastUpdated: string,
+  description: string,
+}
+
+const fieldData: Turbine[] = [
   {
     id: 10001,
-    priority: "medium",
+    priority: "low",
     title: "WT-001",
     type: "mechanical",
     status: "resolved",
