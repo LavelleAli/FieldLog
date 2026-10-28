@@ -14,7 +14,7 @@ const IssueBoard = () => {
   }
 
   function loadMoreTickets() {
-    setAddCards((prev) => prev + 4);
+    setAddCards((prev) => prev + 24);
   }
 
   return (
@@ -25,12 +25,15 @@ const IssueBoard = () => {
         <div className=" w-400 grid lg:grid-cols-4 text-center">
           {turbineData()}
         </div>
+        {addCards < fieldData.length && (
         <button
           className="mt-4 border rounded-md p-2 text-sm "
           onClick={loadMoreTickets}
         >
           Load More
         </button>
+
+        )}
       </div>
     </div>
   );
