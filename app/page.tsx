@@ -14,7 +14,7 @@ const IssueBoard = () => {
   }
 
   function loadMoreTickets() {
-    setAddCards((prev) => prev + 24);
+    setAddCards((prev) => prev + 20);
   }
 
   return (
