@@ -1,16 +1,10 @@
-import { Turbine } from '@/data/Fleetdata'
+import { Turbine } from "@/data/Fleetdata";
 
-
-const AssessmentCards = ({ turbine }: { turbine: Turbine})  => {
+const AssessmentCards = ({ turbine }: { turbine: Turbine }) => {
   function windTurbineData() {
     return (
       <div className="bg-blue-900/30 w-90 h-100 rounded-2xl mb-10 ">
-        <div className="flex justify-center gap-50 text-sm ">
-          <div>ID: {turbine?.id}</div>
-
-          <div>Priority: {turbine?.priority}</div>
-        </div>
-
+        <h1>{turbine.equipment}</h1>
         <h1 className="flex justify-center text-2xl">{turbine?.title}</h1>
 
         <div className="grid lg:grid-cols-3 text-sm text-center mt-4">
@@ -36,23 +30,29 @@ const AssessmentCards = ({ turbine }: { turbine: Turbine})  => {
           </div>
           <div>
             <label>
-              Last Updated: {turbine?.lastUpdated}
+              Updated: {turbine?.updatedAt}
               <input type="date" name="reportedOn" />
             </label>
           </div>
           <div className="relative top-10 left-10 flex flex-col justify-center w-70">
             <label htmlFor="description">
-              Description: <div>{turbine?.description}</div>
+              Description: <div>{turbine?.notes}</div>
             </label>
-            <textarea
+            {/* The textarea for entering descriptions will be written on the front of the card and can be read on the back of the card. */}
+            {/* <textarea
               name="notes"
               placeholder="provide brief description of component issue"
               className="flex justify-center text-center text-muted w-full h-30 border rounded-md"
-            />
+            /> */}
           </div>
-          <div className="relative top-50">
-            Image Link
+          <div className="relative top-60 flex justify-center gap-40  ">
+            <div>ID: {turbine?.id}</div>
+            <div>Image link</div>
             {/* Image will pop up as preview when hovered/selected */}
+          </div>
+
+          <div className="relative top-50">
+            <div>Priority: {turbine?.priority}</div>
           </div>
         </div>
       </div>

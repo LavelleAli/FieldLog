@@ -5,7 +5,7 @@ import fieldData from "@/data/Fleetdata";
 
 const IssueBoard = () => {
   const [addCards, setAddCards] = useState(8);
-  const [limitReader, setLimitReader] = useState();
+  
 
   function turbineData() {
     return fieldData
@@ -14,14 +14,13 @@ const IssueBoard = () => {
   }
 
   function loadMoreTickets() {
-    setAddCards((prev) => prev + 20);
+    setAddCards((prev) => prev + 8);
   }
 
   return (
     <div className="container flex justify-center w-full h-screen mx-auto mb-10">
       <div className="content flex flex-col items-center justify-center w-350 h-screen mt-8">
-        2 rows of 4 &quot;Assessment Cards&quot; that loads more as user scrolls
-        down
+        Dashboard
         <div className=" w-400 grid lg:grid-cols-4 text-center">
           {turbineData()}
         </div>
