@@ -2,6 +2,7 @@
 import { useState } from "react";
 import AssessmentCards from "@/components/assessmentCards/AssessmentCards";
 import fieldData from "@/data/Fleetdata";
+import Dashboard from '@/components/dashboard/Dashboard';
 
 const IssueBoard = () => {
   const [addCards, setAddCards] = useState(8);
@@ -14,14 +15,14 @@ const IssueBoard = () => {
   }
 
   function loadMoreTickets() {
-    setAddCards((prev) => prev + 8);
+    setAddCards((prev) => prev + 4);
   }
 
   return (
     <div className="container flex justify-center w-full mx-auto mb-10">
       <div className="content flex flex-col items-center w-full max-w-7xl px-4 mt-8">
-        <h1 className="mb-6 text-2xl font-semibold">Dashboard</h1>
-        {/* auto-fill: as many 18rem+ columns as fit, down to one column on phones */}
+        <Dashboard />
+        
         <div className="grid w-full gap-6 grid-cols-[repeat(auto-fill,minmax(min(100%,18rem),1fr))]">
           {turbineData()}
         </div>

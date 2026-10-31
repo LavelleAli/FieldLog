@@ -8,7 +8,7 @@ const dateFormat = new Intl.DateTimeFormat("en-GB", {
 
 const AssessmentCards = ({ turbine }: { turbine: Turbine }) => {
   return (
-    <article className="flex flex-col gap-4 rounded-2xl bg-blue-900/30 p-4 text-left text-sm">
+    <article className="flex flex-col gap-4 rounded-2xl bg-fairwindblue border border-white hover:border-accent hover:scale-110 p-4 text-left text-sm transition-all duration-500">
       <header className="flex items-start justify-between gap-2">
         <div className="min-w-0">
           <h2 className="text-xl font-semibold">{turbine?.title}</h2>
