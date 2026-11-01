@@ -1,37 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# FieldLog
 
-## Getting Started
+FieldLog is an equipment-issue tracker for wind turbine maintenance crews. Technicians log issues with a priority, supervisors see what is open, in progress and resolved, and every status change and note is recorded so the next shift knows where things stand.
 
-First, run the development server:
+## Wireframe
+
+![FieldLog dashboard wireframe](docs/dashboard-wireframe.svg)
+
+The wireframe is also at [docs/dashboard-wireframe.svg](docs/dashboard-wireframe.svg).
+
+## User stories
+
+The three user stories are on the About page: `/about` in the app, or [app/about/page.tsx](app/about/page.tsx) in the code.
+
+## Features
+
+**Built so far**
+
+- Issue board that shows each issue as a card: turbine ID, summary, priority, type, status, notes, ID and last-updated date
+- Responsive card grid: four columns on desktop, down to one on phones
+- Load More button that shows 4 more cards per click and hides once every card is shown
+- Dashboard header with a welcome message and Open, In Progress and Resolved status indicators
+- Navbar with the FieldLog logo and an Account page
+- Light and dark colour scheme that follows the device setting
+- 25 fictional seed issues
+
+**Planned**
+
+- Create Card form that adds a new issue to the board
+- Live issue counts calculated from the data
+- Search, and sorting by created date, updated date, ID, title, type and status (updated date by default)
+- Saving status changes and notes
+- Log Book page
+
+## Tech stack
+
+- [Next.js 16](https://nextjs.org) (App Router)
+- [React 19](https://react.dev)
+- [TypeScript](https://www.typescriptlang.org)
+- [Tailwind CSS 4](https://tailwindcss.com)
+- [Font Awesome](https://fontawesome.com) icons
+- Deployed on [Vercel](https://vercel.com)
+
+## Getting started
+
+You need [Node.js](https://nodejs.org) 20 or later.
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open [http://localhost:3000](http://localhost:3000). If port 3000 is already in use, Next picks the next free port and prints it in the terminal.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Other scripts:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | What it does |
+| --- | --- |
+| `npm run build` | Builds the production version |
+| `npm run start` | Runs the production build |
+| `npm run lint` | Checks the code with ESLint |
+| `npx tsc --watch` | Type-checks the project every time a file is saved |
 
-## Learn More
+## Project structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+app/            Pages: / (issue board), /about, /account, /logbook
+components/     NavBar, Footer, Dashboard, AssessmentCards (issue cards)
+data/           Fleetdata.ts: the Turbine type and the seed issues
+docs/           Wireframe and other planning material
+public/         Logo and icon files
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Data model
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Each issue follows the `Turbine` interface in [data/Fleetdata.ts](data/Fleetdata.ts):
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# FieldLog
+| Field | Type | Notes |
+| --- | --- | --- |
+| `id` | `string` | Unique ID from `crypto.randomUUID()` |
+| `title` | `string` | Turbine ID, for example `WT-037` |
+| `equipment` | `string` | Short summary of the issue |
+| `priority` | `"low" \| "medium" \| "high"` | |
+| `type` | `"mechanical" \| "hydraulic" \| "electrical"` | |
+| `status` | `"open" \| "in progress" \| "resolved"` | |
+| `notes` | `string` | Details of the problem or how it was fixed |
+| `createdAt` | `string` | ISO date, set once when the issue is logged |
+| `updatedAt` | `string` | ISO date, updated on every change |

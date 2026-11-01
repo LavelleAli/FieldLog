@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1080" width="1200" height="1080" font-family="Arial, Helvetica, sans-serif" fill="none" stroke="#333" stroke-width="2">
+  <title>FieldLog dashboard wireframe</title>
+
+  <defs>
+    <!-- One issue card, reused for every slot in the grid -->
+    <g id="card">
+      <rect x="0" y="0" width="262" height="260" rx="14" fill="#f4f6fb"/>
+      <text x="16" y="34" font-size="18" font-weight="bold" fill="#333" stroke="none">WT-###</text>
+      <rect x="186" y="16" width="60" height="22" rx="11" fill="#fff"/>
+      <text x="216" y="32" font-size="11" text-anchor="middle" fill="#333" stroke="none">priority</text>
+      <text x="16" y="58" font-size="12" fill="#666" stroke="none">Issue summary</text>
+
+      <text x="16" y="82" font-size="11" fill="#333" stroke="none">Type</text>
+      <rect x="16" y="88" width="107" height="26" rx="5" fill="#fff"/>
+      <text x="26" y="105" font-size="11" fill="#666" stroke="none">Mechanical ▾</text>
+      <text x="139" y="82" font-size="11" fill="#333" stroke="none">Status</text>
+      <rect x="139" y="88" width="107" height="26" rx="5" fill="#fff"/>
+      <text x="149" y="105" font-size="11" fill="#666" stroke="none">Open ▾</text>
+
+      <text x="16" y="140" font-size="12" font-weight="bold" fill="#333" stroke="none">Notes:</text>
+      <line x1="16" y1="156" x2="246" y2="156" stroke="#bbb" stroke-width="6" stroke-linecap="round"/>
+      <line x1="16" y1="172" x2="230" y2="172" stroke="#bbb" stroke-width="6" stroke-linecap="round"/>
+      <line x1="16" y1="188" x2="160" y2="188" stroke="#bbb" stroke-width="6" stroke-linecap="round"/>
+
+      <line x1="16" y1="216" x2="246" y2="216" stroke-width="1"/>
+      <text x="16" y="240" font-size="11" fill="#666" stroke="none">ID: 7e55f3d0…</text>
+      <text x="246" y="240" font-size="11" fill="#666" stroke="none" text-anchor="end">Updated: 2 Oct 2026</text>
+    </g>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="1080" fill="#fff" stroke="none"/>
+  <text x="40" y="32" font-size="14" fill="#888" stroke="none">FieldLog: dashboard wireframe (desktop)</text>
+
+  <!-- Navbar -->
+  <rect x="40" y="50" width="1120" height="60" rx="8"/>
+  <rect x="60" y="65" width="30" height="30" rx="6" fill="#ddd"/>
+  <text x="102" y="87" font-size="18" fill="#333" stroke="none">FieldLog</text>
+  <circle cx="1052" cy="80" r="12" fill="#ddd"/>
+  <text x="1074" y="86" font-size="16" fill="#333" stroke="none">Account</text>
+
+  <!-- Dashboard panel -->
+  <rect x="40" y="135" width="1120" height="150" rx="8"/>
+  <text x="70" y="182" font-size="16" fill="#333" stroke="none">Log Book</text>
+  <text x="600" y="182" font-size="22" font-weight="bold" fill="#333" stroke="none" text-anchor="middle">Welcome, Technician</text>
+  <text x="880" y="182" font-size="16" fill="#333" stroke="none">Search:</text>
+  <line x1="945" y1="185" x2="1130" y2="185" stroke-width="1.5"/>
+
+  <circle cx="76" cy="244" r="5" fill="#ef4444" stroke="none"/>
+  <text x="90" y="249" font-size="14" fill="#333" stroke="none">Open: 10</text>
+  <circle cx="186" cy="244" r="5" fill="#eab308" stroke="none"/>
+  <text x="200" y="249" font-size="14" fill="#333" stroke="none">In Progress: 8</text>
+  <circle cx="336" cy="244" r="5" fill="#22c55e" stroke="none"/>
+  <text x="350" y="249" font-size="14" fill="#333" stroke="none">Resolved: 7</text>
+
+  <text x="900" y="249" font-size="16" fill="#333" stroke="none">Filter ▾</text>
+  <rect x="990" y="222" width="140" height="40" rx="6"/>
+  <text x="1060" y="248" font-size="15" fill="#333" stroke="none" text-anchor="middle">Add Card+</text>
+
+  <!-- Card grid -->
+  <text x="40" y="303" font-size="11" fill="#888" stroke="none">Auto-fill grid: 4 columns on desktop, down to 1 column on phones</text>
+  <use href="#card" x="40" y="314"/>
+  <use href="#card" x="326" y="314"/>
+  <use href="#card" x="612" y="314"/>
+  <use href="#card" x="898" y="314"/>
+  <use href="#card" x="40" y="598"/>
+  <use href="#card" x="326" y="598"/>
+  <use href="#card" x="612" y="598"/>
+  <use href="#card" x="898" y="598"/>
+
+  <!-- Load More -->
+  <rect x="540" y="878" width="120" height="36" rx="6"/>
+  <text x="600" y="901" font-size="14" fill="#333" stroke="none" text-anchor="middle">Load More</text>
+  <text x="672" y="901" font-size="11" fill="#888" stroke="none">adds 4 cards; hidden when all cards are shown</text>
+
+  <!-- Footer -->
+  <rect x="40" y="944" width="1120" height="110" rx="8"/>
+  <text x="70" y="1004" font-size="16" fill="#333" stroke="none">© Lavelle Ali 2026</text>
+  <text x="520" y="976" font-size="18" font-weight="bold" fill="#333" stroke="none">Contact</text>
+  <line x1="520" y1="984" x2="600" y2="984"/>
+  <text x="520" y="1010" font-size="13" fill="#333" stroke="none">Email: …</text>
+  <text x="520" y="1032" font-size="13" fill="#333" stroke="none">Phone: …</text>
+  <text x="860" y="976" font-size="18" font-weight="bold" fill="#333" stroke="none">Follow Us!</text>
+  <line x1="860" y1="984" x2="1000" y2="984"/>
+  <circle cx="872" cy="1014" r="11" fill="#ddd"/>
+  <circle cx="906" cy="1014" r="11" fill="#ddd"/>
+  <circle cx="940" cy="1014" r="11" fill="#ddd"/>
+</svg>

@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
+import { faCircleUser, faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 
 const NavBar = () => {
   return (
@@ -20,7 +20,7 @@ const NavBar = () => {
           </div>
         </Link>
       </div>
-      <div>
+      <div className="flex items-center gap-8">
         <Link href={"/account"}>
           <div className="flex items-center gap-2">
             <FontAwesomeIcon
@@ -28,6 +28,15 @@ const NavBar = () => {
               style={{ color: "rgb(20, 88, 223)" }}
             />
             Account
+          </div>
+        </Link>
+        <Link href={"/about"}>
+          <div className="flex items-center gap-2">
+            <FontAwesomeIcon
+              icon={faCircleInfo}
+              style={{ color: "rgb(20, 88, 223)" }}
+            />
+            About
           </div>
         </Link>
       </div>
