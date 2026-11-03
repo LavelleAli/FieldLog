@@ -2,21 +2,23 @@
 import { useState } from "react";
 import AssessmentCards from "@/components/assessmentCards/AssessmentCards";
 import fieldData from "@/data/Fleetdata";
-import Dashboard from '@/components/dashboard/Dashboard';
+import Dashboard from "@/components/dashboard/Dashboard";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
-
 const IssueBoard = () => {
   const [addCards, setAddCards] = useState(8);
-
-
-
-
+  
   function turbineData() {
     return fieldData
       .slice(0, addCards)
-      .map((turbine, idx) =>   <AssessmentCards key={turbine.id} turbine={turbine} newCard={addCards === 8 || idx >= addCards - 4 }/>);
+      .map((turbine, idx) => (
+        <AssessmentCards
+          key={turbine.id}
+          turbine={turbine}
+          newCard={addCards === 8 || idx >= addCards - 4}
+        />
+      ));
   }
 
   useGSAP(() => {
@@ -24,30 +26,27 @@ const IssueBoard = () => {
       opacity: 0,
       y: 50,
       duration: 0.5,
-      stagger: 0.1,
-      clearProps: "all"
-    })
-  },[addCards]);
-
-
+      stagger: 0.0,
+      clearProps: "all",
+    });
+  }, [addCards]);
 
   return (
     <div className="container flex justify-center w-full mx-auto mb-10">
       <div className="content flex flex-col items-center w-full max-w-7xl px-4 mt-8">
         <Dashboard />
-        
+
         <div className="grid w-full gap-6 grid-cols-[repeat(auto-fill,minmax(min(100%,18rem),1fr))]">
           {turbineData()}
         </div>
 
         {addCards < fieldData.length && (
-        <button
-          className="mt-4 border rounded-md p-2 text-sm"
-          onClick={() => setAddCards((prev) => prev + 4)}
-        >
-          Load More
-        </button>
-
+          <button
+            className="mt-4 border rounded-md p-2 text-sm"
+            onClick={() => setAddCards((prev) => prev + 4)}
+          >
+            Load More
+          </button>
         )}
       </div>
     </div>

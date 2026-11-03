@@ -1,15 +1,21 @@
-
-import React from "react";
+'use client'
+import { useState } from "react";
+import { CreateCard } from "../createcard/CreateCard";
 
 const Dashboard = () => {
-  function addNewItemToIssueBoard() {
-    console.log("Card added");
-  }
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+
+
+  
 
   //   This function will be used to count the card status types as they change.
   function countBox() {
     return <div className="w-8 h-8 border border-white ">23</div>;
   }
+
+
   return (
     <div className="w-full  border rounded-md p-4 mb-20 ">
       <div className="flex flex-col justify-around gap-12 ml-4">
@@ -46,11 +52,12 @@ const Dashboard = () => {
             <div className="flex items-center gap-8 mr-10 ">
               Filter
               <button
-                className="border border-white h-10 p-2 rounded-md cursor-pointer hover:text-green-400 "
-                onClick={addNewItemToIssueBoard}
+                className={`border border-white h-10 p-2 rounded-md cursor-pointer hover:text-green-400 `}
+                onClick={() => setIsModalOpen(true)}
               >
                 Add Card+
               </button>
+              {isModalOpen && <CreateCard isOpen={ isModalOpen }   />}
             </div>
           </div>
         </div>
