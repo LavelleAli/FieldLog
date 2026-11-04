@@ -1,18 +1,66 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useRef, type SubmitEvent } from "react";
+import { Turbine } from "@/data/Fleetdata";
 
-export const CreateCard = ({ isOpen }: { isOpen: boolean }) => {
-  const id: string = crypto.randomUUID();
+export const CreateCard = ({ onClose,onCreateCard,}: {onClose: () => void; onCreateCard: (card: Turbine) => void;}) => {
+
+
+  const dialogRef = useRef<HTMLDialogElement>(null);
+
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (dialog && !dialog.open) dialog.showModal();
+  }, []);
+
+  function closeDialog() {
+    dialogRef.current?.close();
+  }
+
+  function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    const now = new Date().toISOString();
+
+    onCreateCard({
+      id: crypto.randomUUID(),
+      title: String(form.get("title")).trim(),
+      equipment: String(form.get("equipment")).trim(),
+      priority: form.get("priority") as Turbine["priority"],
+      type: form.get("type") as Turbine["type"],
+      status: form.get("status") as Turbine["status"],
+      notes: String(form.get("notes")).trim(),
+      createdAt: now,
+      updatedAt: now,
+    });
+    closeDialog();
+  }
 
   return (
-    <div className="w-full h-full fixed top-0 left-0 bg-black/50 bg-opacity-50 flex justify-center items-center z-50">
-      <div className="flex flex-col items-center w-2/5 h-3/5 bg-fairwindblue/90 rounded-xl p-4">
-        <form action="">
+    <dialog
+      ref={dialogRef}
+      onClose={onClose}
+      aria-labelledby="create-card-heading"
+      className="m-auto bg-fairwindblue/90 text-foreground rounded-xl p-6 border border-accent shadow-[0_0_8px] shadow-accent backdrop:bg-black/50"
+    >
+      <div className="flex flex-col items-center">
+        <form onSubmit={handleSubmit}>
+          <button
+            type="button"
+            aria-label="Close"
+            className="absolute top-4 right-5 cursor-pointer hover:scale-150 transition-all duration-500"
+            onClick={closeDialog}
+          >
+            X
+          </button>
+
           <div className="flex justify-center items-center mb-4">
-            <h1 className="text-2xl mb-2 font-bold ">Create Card</h1>
+            <h1 id="create-card-heading" className="text-2xl mb-2 font-bold">
+              Create Card
+            </h1>
           </div>
 
-          <div className="flex flex-col items-start gap-20">
+          <div className="flex flex-col items-start gap-12">
             <div className="flex justify-center">
               <label htmlFor="title">
                 <div className="flex gap-2">
@@ -20,8 +68,9 @@ export const CreateCard = ({ isOpen }: { isOpen: boolean }) => {
                   <input
                     type="text"
                     id="title"
+                    name="title"
                     required
-                    placeholder="Enter turbine number"
+                    placeholder="WT-XXXX"
                     className="border-b text-center outline-none"
                   />
                 </div>
@@ -35,8 +84,9 @@ export const CreateCard = ({ isOpen }: { isOpen: boolean }) => {
                   <input
                     type="text"
                     id="equipment"
+                    name="equipment"
                     placeholder="Enter issue summary"
-                    maxLength={25}
+                    maxLength={30}
                     required
                     className="border-b text-center outline-none"
                   />
@@ -44,17 +94,21 @@ export const CreateCard = ({ isOpen }: { isOpen: boolean }) => {
               </label>
             </div>
 
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               <div>
                 <label htmlFor="priority">
                   <div className="flex gap-2">
                     Priority:
                     <select
                       id="priority"
+                      name="priority"
                       required
+                      defaultValue=""
                       className="border-b text-center outline-none"
                     >
-                      <option value="disabled">Select priority</option>
+                      <option value="" disabled>
+                        Select priority
+                      </option>
                       <option value="low">Low</option>
                       <option value="medium">Medium</option>
                       <option value="high">High</option>
@@ -69,10 +123,14 @@ export const CreateCard = ({ isOpen }: { isOpen: boolean }) => {
                     Type:
                     <select
                       id="type"
+                      name="type"
                       required
+                      defaultValue=""
                       className="border-b text-center outline-none"
                     >
-                      <option value="disabled">Select Type</option>
+                      <option value="" disabled>
+                        Select Type
+                      </option>
                       <option value="mechanical">Mechanical</option>
                       <option value="electrical">Electrical</option>
                       <option value="hydraulic">Hydraulic</option>
@@ -82,53 +140,54 @@ export const CreateCard = ({ isOpen }: { isOpen: boolean }) => {
               </div>
 
               <div>
-                <label htmlFor="">
+                <label htmlFor="status">
                   <div className="flex gap-2">
                     Status:
                     <select
-                      name="status"
                       id="status"
+                      name="status"
                       required
+                      defaultValue=""
                       className="border-b text-center outline-none"
                     >
-                      <option value="disabled">Select status</option>
+                      <option value="" disabled>
+                        Select status
+                      </option>
                       <option value="open">Open</option>
-                      <option value="in_progress">In Progress</option>
-                      <option value="closed">Closed</option>
+                      <option value="in progress">In Progress</option>
+                      <option value="resolved">Resolved</option>
                     </select>
                   </div>
                 </label>
               </div>
             </div>
 
-            <div className="mx-auto">
-              <label htmlFor="" className=" gap-2 text-center">
+            <div className="mx-auto w-full">
+              <label htmlFor="notes" className=" gap-2 text-center">
                 <div className="flex flex-col gap-2">
-                  Notes:
+                  Notes: (max 300 characters)
                   <textarea
                     name="notes"
                     id="notes"
-                    maxLength={200}
-                    className="border rounded-md text-center outline-none w-100 h-20"
+                    maxLength={300}
+                    className="border rounded-md text-center outline-none w-full h-20"
                     placeholder="Enter detail"
                   />
                 </div>
               </label>
             </div>
-
-            {/* automatically generated fields will go here i.e createdAt Date, ID, ect... will be generated on submit */}
           </div>
 
           <div className="flex justify-center">
             <button
               type="submit"
-              className="mx-auto w-1/4 p-2 border rounded-md mt-4  hover:bg-white hover:text-fairwindblue transition-colors duration-500 "
+              className="mx-auto w-1/4 p-2 border rounded-md mt-4 hover:bg-white hover:text-fairwindblue transition-colors duration-500"
             >
               Submit
             </button>
           </div>
         </form>
       </div>
-    </div>
+    </dialog>
   );
 };
