@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, type SubmitEvent, useState } from "react";
 import { Turbine } from "@/data/Fleetdata";
+import FadeIn from "../animationbank/FadeIn";
 
 export const CreateCard = ({
   onClose,
@@ -87,10 +88,13 @@ export const CreateCard = ({
                   />
                 </div>
               </label>
-              {inputInvalid && 
-              <p className="ml-2 text-sm font-semibold text-red-400">
-                Enter a turbine number, Ex: WT-037
-              </p>}
+              
+                {inputInvalid && <FadeIn> 
+                  <p className="fade ml-2 text-sm font-semibold text-red-400 ">
+                    Enter a turbine number: Example WT-037
+                  </p>
+                </FadeIn>}
+              
             </div>
 
             <div>
