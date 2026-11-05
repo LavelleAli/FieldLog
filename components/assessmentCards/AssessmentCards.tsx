@@ -38,7 +38,7 @@ const AssessmentCards = ({ turbine, newCard }: { turbine: Turbine; newCard: bool
         </label>
       </div>
 
-      {/* flex-1 lets the notes take up spare height so the footer lines up across cards in a row */}
+     
       <section className="flex-1">
         <h3 className="font-semibold">Notes:</h3>
         <p className="wrap-break-word">{turbine?.notes}</p>

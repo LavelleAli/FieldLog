@@ -1,12 +1,16 @@
 "use client";
-import { useEffect, useRef, type SubmitEvent } from "react";
+import { useEffect, useRef, type SubmitEvent, useState } from "react";
 import { Turbine } from "@/data/Fleetdata";
 
-export const CreateCard = ({ onClose,onCreateCard,}: {onClose: () => void; onCreateCard: (card: Turbine) => void;}) => {
-
-
+export const CreateCard = ({
+  onClose,
+  onCreateCard,
+}: {
+  onClose: () => void;
+  onCreateCard: (card: Turbine) => void;
+}) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
-
+  const [inputInvalid, setInputInvalid] = useState(false);
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -21,10 +25,16 @@ export const CreateCard = ({ onClose,onCreateCard,}: {onClose: () => void; onCre
     event.preventDefault();
     const form = new FormData(event.currentTarget);
     const now = new Date().toISOString();
+    const title = String(form.get("title")).trim();
+
+    if (title === "") {
+      setInputInvalid(true);
+      return;
+    }
 
     onCreateCard({
       id: crypto.randomUUID(),
-      title: String(form.get("title")).trim(),
+      title,
       equipment: String(form.get("equipment")).trim(),
       priority: form.get("priority") as Turbine["priority"],
       type: form.get("type") as Turbine["type"],
@@ -44,7 +54,7 @@ export const CreateCard = ({ onClose,onCreateCard,}: {onClose: () => void; onCre
       className="m-auto bg-fairwindblue/90 text-foreground rounded-xl p-6 border border-accent shadow-[0_0_8px] shadow-accent backdrop:bg-black/50"
     >
       <div className="flex flex-col items-center">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} noValidate>
           <button
             type="button"
             aria-label="Close"
@@ -61,7 +71,7 @@ export const CreateCard = ({ onClose,onCreateCard,}: {onClose: () => void; onCre
           </div>
 
           <div className="flex flex-col items-start gap-12">
-            <div className="flex justify-center">
+            <div className="flex flex-col items-center gap-2">
               <label htmlFor="title">
                 <div className="flex gap-2">
                   Title:
@@ -69,12 +79,18 @@ export const CreateCard = ({ onClose,onCreateCard,}: {onClose: () => void; onCre
                     type="text"
                     id="title"
                     name="title"
-                    required
                     placeholder="WT-XXXX"
+                    required
+                    aria-invalid={inputInvalid}
                     className="border-b text-center outline-none"
+                    onChange={() => setInputInvalid(false)}
                   />
                 </div>
               </label>
+              {inputInvalid && 
+              <p className="ml-2 text-sm font-semibold text-red-400">
+                Enter a turbine number, Ex: WT-037
+              </p>}
             </div>
 
             <div>
