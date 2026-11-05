@@ -86,3 +86,16 @@ Each issue follows the `Turbine` interface in [data/Fleetdata.ts](data/Fleetdata
 | `notes` | `string` | Details of the problem or how it was fixed |
 | `createdAt` | `string` | ISO date, set once when the issue is logged |
 | `updatedAt` | `string` | ISO date, updated on every change |
+
+## How I built this
+
+I converted the project to TypeScript, designed the turbine data model, and built the Load More logic, the GSAP fade-in for new cards, the navbar, account page, colour scheme, footer, and the Create Card form and its title validation.
+
+I used Claude, an AI coding assistant, for:
+
+- The first layout scaffold that rendered issue cards from mock data
+- A card layout fix (the title and equipment values were swapped)
+- This README, the dashboard wireframe and the About page
+- The Create Card modal's open, close and save logic, and the localStorage load and save code
+
+Those commits are marked with a `Co-Authored-By: Claude` line in the history.
