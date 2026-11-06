@@ -11,7 +11,7 @@ const FadeIn = ({ children } : { children: ReactNode }) => {
         opacity: 0,
         y: 16,
         duration: 0.8,
-        stagger: 0.3,
+        stagger: 0.0,
         ease: "power2.out",
       });
     }, container);

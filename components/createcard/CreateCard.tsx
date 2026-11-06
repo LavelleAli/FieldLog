@@ -3,6 +3,7 @@ import { useEffect, useRef, type SubmitEvent, useState } from "react";
 import { Turbine } from "@/data/Fleetdata";
 import FadeIn from "../animationbank/FadeIn";
 
+
 export const CreateCard = ({
   onClose,
   onCreateCard,
@@ -26,16 +27,9 @@ export const CreateCard = ({
     event.preventDefault();
     const form = new FormData(event.currentTarget);
     const now = new Date().toISOString();
-    const title = String(form.get("title")).trim();
-
-    if (title === "") {
-      setInputInvalid(true);
-      return;
-    }
-
-    onCreateCard({
+    const cardProps = {
       id: crypto.randomUUID(),
-      title,
+      title: String(form.get("title")).trim(),
       equipment: String(form.get("equipment")).trim(),
       priority: form.get("priority") as Turbine["priority"],
       type: form.get("type") as Turbine["type"],
@@ -43,7 +37,16 @@ export const CreateCard = ({
       notes: String(form.get("notes")).trim(),
       createdAt: now,
       updatedAt: now,
-    });
+    };
+
+    for (const key of Object.keys(cardProps)) {
+      if (cardProps[key] === "") {
+        setInputInvalid(true);
+        return;
+      }
+    }
+
+    onCreateCard(cardProps);
     closeDialog();
   }
 
@@ -88,13 +91,14 @@ export const CreateCard = ({
                   />
                 </div>
               </label>
-              
-                {inputInvalid && <FadeIn> 
+
+              {inputInvalid && (
+                <FadeIn>
                   <p className="fade ml-2 text-sm font-semibold text-red-400 ">
                     Enter a turbine number: Example WT-037
                   </p>
-                </FadeIn>}
-              
+                </FadeIn>
+              )}
             </div>
 
             <div>
@@ -126,9 +130,7 @@ export const CreateCard = ({
                       defaultValue=""
                       className="border-b text-center outline-none"
                     >
-                      <option value="" disabled>
-                        Select priority
-                      </option>
+                      <option value="">Select priority</option>
                       <option value="low">Low</option>
                       <option value="medium">Medium</option>
                       <option value="high">High</option>
@@ -148,9 +150,7 @@ export const CreateCard = ({
                       defaultValue=""
                       className="border-b text-center outline-none"
                     >
-                      <option value="" disabled>
-                        Select Type
-                      </option>
+                      <option value="">Select Type</option>
                       <option value="mechanical">Mechanical</option>
                       <option value="electrical">Electrical</option>
                       <option value="hydraulic">Hydraulic</option>
@@ -170,9 +170,7 @@ export const CreateCard = ({
                       defaultValue=""
                       className="border-b text-center outline-none"
                     >
-                      <option value="" disabled>
-                        Select status
-                      </option>
+                      <option value="">Select status</option>
                       <option value="open">Open</option>
                       <option value="in progress">In Progress</option>
                       <option value="resolved">Resolved</option>
