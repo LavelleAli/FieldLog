@@ -3,7 +3,6 @@ import { useEffect, useRef, type SubmitEvent, useState } from "react";
 import { Turbine } from "@/data/Fleetdata";
 import FadeIn from "../animationbank/FadeIn";
 
-
 export const CreateCard = ({
   onClose,
   onCreateCard,
@@ -12,7 +11,7 @@ export const CreateCard = ({
   onCreateCard: (card: Turbine) => void;
 }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
-  const [inputInvalid, setInputInvalid] = useState(false);
+  const [inputInvalid, setInputInvalid] = useState("");
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -40,8 +39,8 @@ export const CreateCard = ({
     };
 
     for (const key of Object.keys(cardProps)) {
-      if (cardProps[key] === "") {
-        setInputInvalid(true);
+      if (cardProps[key] === "" && key !== "notes") {
+        setInputInvalid(key);
         return;
       }
     }
@@ -83,39 +82,48 @@ export const CreateCard = ({
                     type="text"
                     id="title"
                     name="title"
-                    placeholder="WT-XXXX"
+                    placeholder="WT-000"
                     required
-                    aria-invalid={inputInvalid}
+                    aria-invalid={inputInvalid === "title"}
                     className="border-b text-center outline-none"
-                    onChange={() => setInputInvalid(false)}
+                    onChange={() => setInputInvalid("")}
                   />
                 </div>
               </label>
 
-              {inputInvalid && (
+              {inputInvalid === "title" && (
                 <FadeIn>
                   <p className="fade ml-2 text-sm font-semibold text-red-400 ">
-                    Enter a turbine number: Example WT-037
+                    Enter a turbine number; Example: WT-037
                   </p>
                 </FadeIn>
               )}
             </div>
 
-            <div>
+            <div className="flex flex-col gap-2 ">
               <label htmlFor="equipment">
                 <div className="flex gap-2">
                   Equipment:
                   <input
+                    className="border-b text-center outline-none"
                     type="text"
                     id="equipment"
                     name="equipment"
                     placeholder="Enter issue summary"
                     maxLength={30}
                     required
-                    className="border-b text-center outline-none"
+                    aria-invalid={inputInvalid === "equipment"}
+                    onChange={() =>setInputInvalid("")}
                   />
                 </div>
               </label>
+              {inputInvalid === "equipment" && (
+                <FadeIn>
+                  <p className="fade ml-2 text-sm font-semibold text-red-400 ">
+                    Enter brief issue detail; Example: Loose bolts on blade 3
+                  </p>
+                </FadeIn>
+              )}
             </div>
 
             <div className="flex flex-wrap gap-2">
@@ -127,8 +135,10 @@ export const CreateCard = ({
                       id="priority"
                       name="priority"
                       required
+                      aria-invalid={inputInvalid === "priority"}
                       defaultValue=""
                       className="border-b text-center outline-none"
+                      onChange={() => setInputInvalid("")}
                     >
                       <option value="">Select priority</option>
                       <option value="low">Low</option>
@@ -137,6 +147,13 @@ export const CreateCard = ({
                     </select>
                   </div>
                 </label>
+                {inputInvalid === "priority" && (
+                <FadeIn>
+                  <p className="fade mt-2 text-sm font-semibold text-red-400 ">
+                    Please select a priority
+                  </p>
+                </FadeIn>
+              )}
               </div>
 
               <div>
@@ -147,8 +164,10 @@ export const CreateCard = ({
                       id="type"
                       name="type"
                       required
+                      aria-invalid={inputInvalid === "type"}
                       defaultValue=""
                       className="border-b text-center outline-none"
+                      onChange={() => setInputInvalid("")}
                     >
                       <option value="">Select Type</option>
                       <option value="mechanical">Mechanical</option>
@@ -157,6 +176,13 @@ export const CreateCard = ({
                     </select>
                   </div>
                 </label>
+                {inputInvalid === "type" && (
+                <FadeIn>
+                  <p className="fade mt-2 text-sm font-semibold text-red-400 ">
+                    Please select a type
+                  </p>
+                </FadeIn>
+              )}
               </div>
 
               <div>
@@ -167,8 +193,10 @@ export const CreateCard = ({
                       id="status"
                       name="status"
                       required
+                      aria-invalid={inputInvalid === "status"}
                       defaultValue=""
                       className="border-b text-center outline-none"
+                      onChange={() => setInputInvalid("")}
                     >
                       <option value="">Select status</option>
                       <option value="open">Open</option>
@@ -177,6 +205,13 @@ export const CreateCard = ({
                     </select>
                   </div>
                 </label>
+                {inputInvalid === "status" && (
+                <FadeIn>
+                  <p className="fade mt-2 text-sm font-semibold text-red-400 ">
+                    Please select a status
+                  </p>
+                </FadeIn>
+              )}
               </div>
             </div>
 

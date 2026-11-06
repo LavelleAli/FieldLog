@@ -8,7 +8,9 @@ export function loadCards(): Turbine[] {
         const saved = localStorage.getItem(STORAGE_KEY);
         const cards = saved ? JSON.parse(saved) : null;
 
-        return Array.isArray(cards) ? cards : null;
+        return Array.isArray(cards) && cards.every((card) => typeof card.id === "string" ) && cards.every((card) => !isNaN(Date.parse(card.updatedAt)) ) ? cards : null
+        
+        
     }catch ( err ) {
         return null;
     }

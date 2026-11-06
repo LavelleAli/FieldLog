@@ -23,7 +23,7 @@ const Dashboard = ({onCreateCard,}: {onCreateCard: (card: Turbine) =>void;}) => 
             <input
               type="text"
               placeholder="Search"
-              className="border-b text-center"
+              className="border-b text-center outline-none"
             />
           </div>
         </div>
