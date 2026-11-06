@@ -20,13 +20,14 @@ The three user stories are on the About page: `/about` in the app, or [app/about
 - Responsive card grid: four columns on desktop, down to one on phones
 - Load More button that shows 4 more cards per click and hides once every card is shown
 - Dashboard header with a welcome message and Open, In Progress and Resolved status indicators
+- Create Card form that adds a new issue to the board, with an error message for each required field
+- New issues saved in the browser with localStorage, falling back to the seed issues if the saved data is missing or unusable
 - Navbar with the FieldLog logo and an Account page
 - Light and dark colour scheme that follows the device setting
 - 25 fictional seed issues
 
 **Planned**
 
-- Create Card form that adds a new issue to the board
 - Live issue counts calculated from the data
 - Search, and sorting by created date, updated date, ID, title, type and status (updated date by default)
 - Saving status changes and notes
@@ -65,8 +66,11 @@ Other scripts:
 
 ```
 app/            Pages: / (issue board), /about, /account, /logbook
-components/     NavBar, Footer, Dashboard, AssessmentCards (issue cards)
+components/     IssueBoard (card list and state), AssessmentCards (issue cards),
+                CreateCard (form), AddCardModal (opens the form), Dashboard,
+                NavBar, Footer, FadeIn (GSAP fade-in)
 data/           Fleetdata.ts: the Turbine type and the seed issues
+                CardStorage.ts: loads and saves issues in localStorage
 docs/           Wireframe and other planning material
 public/         Logo and icon files
 ```
@@ -89,7 +93,7 @@ Each issue follows the `Turbine` interface in [data/Fleetdata.ts](data/Fleetdata
 
 ## How I built this
 
-I converted the project to TypeScript, designed the turbine data model, and built the Load More logic, the GSAP fade-in for new cards, the navbar, account page, colour scheme, footer, and the Create Card form and its title validation.
+I converted the project to TypeScript, designed the turbine data model, and built the Load More logic, the GSAP fade-in for new cards, the navbar, account page, colour scheme, footer, and the Create Card form and its field validation.
 
 I used Claude, an AI coding assistant, for:
 
@@ -97,5 +101,6 @@ I used Claude, an AI coding assistant, for:
 - A card layout fix (the title and equipment values were swapped)
 - This README, the dashboard wireframe and the About page
 - The Create Card modal's open, close and save logic, and the localStorage load and save code
+- Guidance and a few lines of code for the Create Card field errors and the saved-card checks
 
 Those commits are marked with a `Co-Authored-By: Claude` line in the history.
