@@ -19,7 +19,7 @@ The three user stories are on the About page: `/about` in the app, or [app/about
 - Issue board that shows each issue as a card: turbine ID, summary, priority, type, status, notes, ID and last-updated date
 - Responsive card grid: four columns on desktop, down to one on phones
 - Load More button that shows 4 more cards per click and hides once every card is shown
-- Dashboard header with a welcome message and Open, In Progress and Resolved status indicators
+- Dashboard header with a welcome message and live Open, In Progress and Resolved counts calculated from the issues
 - Create Card form that adds a new issue to the board, with an error message for each required field
 - New issues saved in the browser with localStorage, falling back to the seed issues if the saved data is missing or unusable
 - Navbar with the FieldLog logo and an Account page
@@ -28,7 +28,6 @@ The three user stories are on the About page: `/about` in the app, or [app/about
 
 **Planned**
 
-- Live issue counts calculated from the data
 - Search, and sorting by created date, updated date, ID, title, type and status (updated date by default)
 - Saving status changes and notes
 - Log Book page
@@ -93,7 +92,7 @@ Each issue follows the `Turbine` interface in [data/Fleetdata.ts](data/Fleetdata
 
 ## How I built this
 
-I converted the project to TypeScript, designed the turbine data model, and built the Load More logic, the GSAP fade-in for new cards, the navbar, account page, colour scheme, footer, and the Create Card form and its field validation.
+I converted the project to TypeScript, designed the turbine data model, and built the Load More logic, the GSAP fade-in for new cards, the navbar, account page, colour scheme, footer, the Create Card form and its field validation, and the live status counts.
 
 I used Claude, an AI coding assistant, for:
 
@@ -104,3 +103,5 @@ I used Claude, an AI coding assistant, for:
 - Guidance and a few lines of code for the Create Card field errors and the saved-card checks
 
 Those commits are marked with a `Co-Authored-By: Claude` line in the history.
+
+I reviewed and tested every AI-assisted change before merging it, and I can walk through any part of this code.

@@ -113,7 +113,7 @@ export const CreateCard = ({
                     maxLength={30}
                     required
                     aria-invalid={inputInvalid === "equipment"}
-                    onChange={() =>setInputInvalid("")}
+                    onChange={() => setInputInvalid("")}
                   />
                 </div>
               </label>
@@ -148,12 +148,12 @@ export const CreateCard = ({
                   </div>
                 </label>
                 {inputInvalid === "priority" && (
-                <FadeIn>
-                  <p className="fade mt-2 text-sm font-semibold text-red-400 ">
-                    Please select a priority
-                  </p>
-                </FadeIn>
-              )}
+                  <FadeIn>
+                    <p className="fade mt-2 text-sm font-semibold text-red-400 ">
+                      Please select a priority
+                    </p>
+                  </FadeIn>
+                )}
               </div>
 
               <div>
@@ -177,12 +177,12 @@ export const CreateCard = ({
                   </div>
                 </label>
                 {inputInvalid === "type" && (
-                <FadeIn>
-                  <p className="fade mt-2 text-sm font-semibold text-red-400 ">
-                    Please select a type
-                  </p>
-                </FadeIn>
-              )}
+                  <FadeIn>
+                    <p className="fade mt-2 text-sm font-semibold text-red-400 ">
+                      Please select a type
+                    </p>
+                  </FadeIn>
+                )}
               </div>
 
               <div>
@@ -206,12 +206,12 @@ export const CreateCard = ({
                   </div>
                 </label>
                 {inputInvalid === "status" && (
-                <FadeIn>
-                  <p className="fade mt-2 text-sm font-semibold text-red-400 ">
-                    Please select a status
-                  </p>
-                </FadeIn>
-              )}
+                  <FadeIn>
+                    <p className="fade mt-2 text-sm font-semibold text-red-400 ">
+                      Please select a status
+                    </p>
+                  </FadeIn>
+                )}
               </div>
             </div>
 
