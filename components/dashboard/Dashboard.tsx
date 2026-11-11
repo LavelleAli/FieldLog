@@ -1,4 +1,5 @@
 "use client";
+import FadeIn from "../animationbank/FadeIn";
 import AddCardModal from "../modalcontrol/AddCardModal";
 import { Turbine } from "@/data/Fleetdata";
 
@@ -13,8 +14,6 @@ const Dashboard = ({
     resolved: number;
   };
 }) => {
-
-
   return (
     <div className="w-full  border rounded-md p-4 mb-20 ">
       <div className="flex flex-col justify-around gap-12 ml-4">
@@ -50,7 +49,11 @@ const Dashboard = ({
           <div className="flex flex-col items-center ">
             <div className="flex items-center gap-8 mr-10 ">
               Filter
-              <AddCardModal onCreateCard={onCreateCard} />
+              <FadeIn>
+                <div className="fade">
+                  <AddCardModal onCreateCard={onCreateCard} />
+                </div>
+              </FadeIn>
             </div>
           </div>
         </div>

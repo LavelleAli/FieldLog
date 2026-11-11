@@ -1,8 +1,13 @@
 import { useState } from "react";
 import { CreateCard } from "../createcard/CreateCard";
 import { Turbine } from "@/data/Fleetdata";
+import FadeIn from "../animationbank/FadeIn";
 
-const AddCardModal = ({ onCreateCard }: { onCreateCard: (card: Turbine) => void; }) => {
+const AddCardModal = ({
+  onCreateCard,
+}: {
+  onCreateCard: (card: Turbine) => void;
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -13,6 +18,7 @@ const AddCardModal = ({ onCreateCard }: { onCreateCard: (card: Turbine) => void;
       >
         Add Card+
       </button>
+
       {isModalOpen && (
         <CreateCard
           onClose={() => setIsModalOpen(false)}

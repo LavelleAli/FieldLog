@@ -1,14 +1,23 @@
 import { Turbine } from "@/data/Fleetdata";
 
-
 const dateFormat = new Intl.DateTimeFormat("en-GB", {
   dateStyle: "medium",
   timeZone: "UTC",
 });
 
-const AssessmentCards = ({ turbine, newCard }: { turbine: Turbine; newCard: boolean }) => {
+const AssessmentCards = ({
+  turbine,
+  newCard,
+  editCard,
+}: {
+  turbine: Turbine;
+  newCard: boolean;
+  editCard: (id: string, status: Turbine["status"]) => void;
+}) => {
   return (
-    <article className={`${newCard ? "cardsAdded" : ""} flex flex-col gap-4 rounded-2xl bg-fairwindblue border border-white hover:border-accent hover:scale-110 p-4 text-left text-sm transition-[border-color,scale] duration-500 `}>
+    <article
+      className={`${newCard ? "cardsAdded" : ""} flex flex-col gap-4 rounded-2xl bg-fairwindblue border border-white hover:border-accent hover:scale-110 p-4 text-left text-sm transition-[border-color,scale] duration-500 `}
+    >
       <header className="flex items-start justify-between gap-2">
         <div className="min-w-0">
           <h2 className="text-xl font-semibold">{turbine?.title}</h2>
@@ -22,7 +31,11 @@ const AssessmentCards = ({ turbine, newCard }: { turbine: Turbine; newCard: bool
       <div className="grid grid-cols-2 gap-3">
         <label className="flex min-w-0 flex-col gap-1">
           Type
-          <select name="type" defaultValue={turbine?.type} className="rounded-md border p-1">
+          <select
+            name="type"
+            defaultValue={turbine?.type}
+            className="rounded-md border p-1"
+          >
             <option value="electrical">Electrical</option>
             <option value="mechanical">Mechanical</option>
             <option value="hydraulic">Hydraulic</option>
@@ -30,7 +43,11 @@ const AssessmentCards = ({ turbine, newCard }: { turbine: Turbine; newCard: bool
         </label>
         <label className="flex min-w-0 flex-col gap-1">
           Status
-          <select name="status" defaultValue={turbine?.status} className="rounded-md border p-1">
+          <select
+            name="status"
+            defaultValue={turbine?.status}
+            className="rounded-md border p-1"
+          >
             <option value="open">Open</option>
             <option value="in progress">In Progress</option>
             <option value="resolved">Resolved</option>
@@ -38,7 +55,6 @@ const AssessmentCards = ({ turbine, newCard }: { turbine: Turbine; newCard: bool
         </label>
       </div>
 
-     
       <section className="flex-1">
         <h3 className="font-semibold">Notes:</h3>
         <p className="wrap-break-word">{turbine?.notes}</p>

@@ -11,7 +11,6 @@ import { loadCards, saveCards } from "@/data/CardStorage";
 const IssueBoard = () => {
   const [addCards, setAddCards] = useState(8);
   const [cards, setCards] = useState<Turbine[]>(() => loadCards() ?? fieldData);
- 
   const counts = {
       open: cards.filter((card) => card.status === "open").length,
       inProgress: cards.filter((card) => card.status === "in progress").length,
@@ -24,6 +23,16 @@ const IssueBoard = () => {
     saveCards(next);
   }
 
+  function updateCardStatus(id: string, status: Turbine["status"]) {
+    const now = new Date().toISOString();
+    const userCardSelected = cards.map((card) => card.id === id ? {...card, status: status, updatedAt: now } : card);
+    setCards(userCardSelected);
+    saveCards(userCardSelected);
+    
+    
+  }
+
+
   function turbineData() {
     return cards
       .slice(0, addCards)
@@ -32,6 +41,7 @@ const IssueBoard = () => {
           key={turbine.id}
           turbine={turbine}
           newCard={addCards === 8 || idx >= addCards - 4}
+          editCard={updateCardStatus}
         />
       ));
   }
