@@ -21,6 +21,7 @@ The three user stories are on the About page: `/about` in the app, or [app/about
 - Load More button that shows 4 more cards per click and hides once every card is shown
 - Dashboard header with a welcome message and live Open, In Progress and Resolved counts calculated from the issues
 - Create Card form that adds a new issue to the board, with an error message for each required field
+- Status dropdown on each card that saves the change and updates the card's last-updated date and the counts
 - New issues saved in the browser with localStorage, falling back to the seed issues if the saved data is missing or unusable
 - Navbar with the FieldLog logo and an Account page
 - Light and dark colour scheme that follows the device setting
@@ -29,7 +30,7 @@ The three user stories are on the About page: `/about` in the app, or [app/about
 **Planned**
 
 - Search, and sorting by created date, updated date, ID, title, type and status (updated date by default)
-- Saving status changes and notes
+- Editing an existing issue, and saving notes
 - Log Book page
 
 ## Tech stack
@@ -92,7 +93,7 @@ Each issue follows the `Turbine` interface in [data/Fleetdata.ts](data/Fleetdata
 
 ## How I built this
 
-I converted the project to TypeScript, designed the turbine data model, and built the Load More logic, the GSAP fade-in for new cards, the navbar, account page, colour scheme, footer, the Create Card form and its field validation, and the live status counts.
+I converted the project to TypeScript, designed the turbine data model, and built the Load More logic, the GSAP fade-in for new cards, the navbar, account page, colour scheme, footer, the Create Card form and its field validation, the live status counts, and saving status changes from each card.
 
 I used Claude, an AI coding assistant, for:
 
@@ -100,7 +101,7 @@ I used Claude, an AI coding assistant, for:
 - A card layout fix (the title and equipment values were swapped)
 - This README, the dashboard wireframe and the About page
 - The Create Card modal's open, close and save logic, and the localStorage load and save code
-- Guidance and a few lines of code for the Create Card field errors and the saved-card checks
+- Guidance and a few lines of code for the Create Card field errors, the saved-card checks and the status dropdown
 
 Those commits are marked with a `Co-Authored-By: Claude` line in the history.
 

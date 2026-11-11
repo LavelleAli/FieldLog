@@ -32,7 +32,6 @@ const IssueBoard = () => {
     
   }
 
-
   function turbineData() {
     return cards
       .slice(0, addCards)

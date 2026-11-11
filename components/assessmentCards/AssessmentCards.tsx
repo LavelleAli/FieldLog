@@ -47,6 +47,7 @@ const AssessmentCards = ({
             name="status"
             defaultValue={turbine?.status}
             className="rounded-md border p-1"
+            onChange={(e) => editCard(turbine.id, e.target.value as Turbine["status"] )}
           >
             <option value="open">Open</option>
             <option value="in progress">In Progress</option>
