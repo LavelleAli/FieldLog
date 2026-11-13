@@ -82,7 +82,7 @@ export const CreateCard = ({
                     type="text"
                     id="title"
                     name="title"
-                    placeholder="WT-000"
+                    placeholder="Example: WT-000"
                     required
                     aria-invalid={inputInvalid === "title"}
                     className="border-b text-center outline-none"

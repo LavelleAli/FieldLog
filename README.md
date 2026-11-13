@@ -22,6 +22,7 @@ The three user stories are on the About page: `/about` in the app, or [app/about
 - Dashboard header with a welcome message and live Open, In Progress and Resolved counts calculated from the issues
 - Create Card form that adds a new issue to the board, with an error message for each required field
 - Status dropdown on each card that saves the change and updates the card's last-updated date and the counts
+- Edit button on each card that opens a form filled in with the issue's details; saving keeps the issue's ID and created date and updates its last-updated date
 - New issues saved in the browser with localStorage, falling back to the seed issues if the saved data is missing or unusable
 - Navbar with the FieldLog logo and an Account page
 - Light and dark colour scheme that follows the device setting
@@ -30,7 +31,6 @@ The three user stories are on the About page: `/about` in the app, or [app/about
 **Planned**
 
 - Search, and sorting by created date, updated date, ID, title, type and status (updated date by default)
-- Editing an existing issue, and saving notes
 - Log Book page
 
 ## Tech stack
@@ -67,7 +67,8 @@ Other scripts:
 ```
 app/            Pages: / (issue board), /about, /account, /logbook
 components/     IssueBoard (card list and state), AssessmentCards (issue cards),
-                CreateCard (form), AddCardModal (opens the form), Dashboard,
+                CreateCard (form), AddCardModal (opens the form),
+                EditCards (edit form), Dashboard,
                 NavBar, Footer, FadeIn (GSAP fade-in)
 data/           Fleetdata.ts: the Turbine type and the seed issues
                 CardStorage.ts: loads and saves issues in localStorage

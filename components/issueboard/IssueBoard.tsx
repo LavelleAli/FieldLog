@@ -28,8 +28,13 @@ const IssueBoard = () => {
     const userCardSelected = cards.map((card) => card.id === id ? {...card, status: status, updatedAt: now } : card);
     setCards(userCardSelected);
     saveCards(userCardSelected);
-    
-    
+  }
+
+  function editedCards(edit: Turbine) {
+    const now = new Date().toISOString()
+    const userEditsCard = cards.map((card) => card.id === edit.id ? {...edit, updatedAt: now } : card);
+    setCards(userEditsCard);
+    saveCards(userEditsCard);
   }
 
   function turbineData() {
@@ -41,6 +46,7 @@ const IssueBoard = () => {
           turbine={turbine}
           newCard={addCards === 8 || idx >= addCards - 4}
           editCard={updateCardStatus}
+          onEditCard={editedCards}
         />
       ));
   }

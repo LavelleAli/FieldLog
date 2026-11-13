@@ -1,4 +1,6 @@
 import { Turbine } from "@/data/Fleetdata";
+import { useState } from "react";
+import EditCards from "../editcard/EditCards";
 
 const dateFormat = new Intl.DateTimeFormat("en-GB", {
   dateStyle: "medium",
@@ -9,11 +11,15 @@ const AssessmentCards = ({
   turbine,
   newCard,
   editCard,
+  onEditCard,
 }: {
   turbine: Turbine;
   newCard: boolean;
   editCard: (id: string, status: Turbine["status"]) => void;
+  onEditCard: (card: Turbine) => void;
 }) => {
+  const [isEditCardOpen, setIsEditCardOpen] = useState(false);
+
   return (
     <article
       className={`${newCard ? "cardsAdded" : ""} flex flex-col gap-4 rounded-2xl bg-fairwindblue border border-white hover:border-accent hover:scale-110 p-4 text-left text-sm transition-[border-color,scale] duration-500 `}
@@ -26,28 +32,36 @@ const AssessmentCards = ({
         <span className="shrink-0 rounded-full border px-2 py-0.5 text-xs capitalize">
           {turbine?.priority}
         </span>
+
+        <button
+          className="w-2 h-2 rounded-2xl bg-white hover:bg-green-500 transition-color duration-500"
+          onClick={() => setIsEditCardOpen(true)}
+        ></button>
       </header>
+      {isEditCardOpen && (
+        <EditCards
+          onClose={() => setIsEditCardOpen(false)}
+          onEditCard={onEditCard}
+          cardEdit={turbine}
+        />
+      )}
 
       <div className="grid grid-cols-2 gap-3">
+
+        <div className="flex flex-col gap-2">
+          <div className="flex min-w-0 flex-col gap-1">Type:</div>
+          <span className="capitalize">{turbine.type}</span>
+        </div>
+
         <label className="flex min-w-0 flex-col gap-1">
-          Type
-          <select
-            name="type"
-            defaultValue={turbine?.type}
-            className="rounded-md border p-1"
-          >
-            <option value="electrical">Electrical</option>
-            <option value="mechanical">Mechanical</option>
-            <option value="hydraulic">Hydraulic</option>
-          </select>
-        </label>
-        <label className="flex min-w-0 flex-col gap-1">
-          Status
+          Status:
           <select
             name="status"
-            defaultValue={turbine?.status}
+            value={turbine?.status}
             className="rounded-md border p-1"
-            onChange={(e) => editCard(turbine.id, e.target.value as Turbine["status"] )}
+            onChange={(e) =>
+              editCard(turbine.id, e.target.value as Turbine["status"])
+            }
           >
             <option value="open">Open</option>
             <option value="in progress">In Progress</option>
