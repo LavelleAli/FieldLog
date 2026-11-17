@@ -1,11 +1,14 @@
 "use client";
-import FadeIn from "../animationbank/FadeIn";
+
 import AddCardModal from "../modalcontrol/AddCardModal";
 import { Turbine } from "@/data/Fleetdata";
+
 
 const Dashboard = ({
   onCreateCard,
   counts,
+  search,
+  onSearchChange,
 }: {
   onCreateCard: (card: Turbine) => void;
   counts: {
@@ -13,7 +16,11 @@ const Dashboard = ({
     inProgress: number;
     resolved: number;
   };
+  search: string;
+  onSearchChange: (text: string) => void;
 }) => {
+
+
   return (
     <div className="w-full  border rounded-md p-4 mb-20 ">
       <div className="flex flex-col justify-around gap-12 ml-4">
@@ -25,9 +32,11 @@ const Dashboard = ({
           <div className="flex items-center gap-2">
             Search:
             <input
-              type="text"
+              type="search"
               placeholder="Search"
               className="border-b text-center outline-none"
+              value={search}
+              onChange={(event) => onSearchChange(event.target.value)}
             />
           </div>
         </div>
@@ -49,11 +58,7 @@ const Dashboard = ({
           <div className="flex flex-col items-center ">
             <div className="flex items-center gap-8 mr-10 ">
               Filter
-              <FadeIn>
-                <div className="fade">
-                  <AddCardModal onCreateCard={onCreateCard} />
-                </div>
-              </FadeIn>
+              <AddCardModal onCreateCard={onCreateCard} />
             </div>
           </div>
         </div>

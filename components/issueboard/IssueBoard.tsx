@@ -11,11 +11,26 @@ import { loadCards, saveCards } from "@/data/CardStorage";
 const IssueBoard = () => {
   const [addCards, setAddCards] = useState(8);
   const [cards, setCards] = useState<Turbine[]>(() => loadCards() ?? fieldData);
+  const [search, setSearch] = useState("");
+  const userText = search.trim().toLowerCase();
+
+  const showResults = cards.filter((card) => 
+    card.title || 
+    card.updatedAt || 
+    card.equipment || 
+    card.notes || 
+    card.priority ||
+    card.type ||
+    card.status);
+
   const counts = {
       open: cards.filter((card) => card.status === "open").length,
       inProgress: cards.filter((card) => card.status === "in progress").length,
       resolved: cards.filter((card) => card.status === "resolved").length,
     };
+
+
+   
 
   function addCard(card: Turbine) {
     const next = [card, ...cards];
@@ -36,6 +51,8 @@ const IssueBoard = () => {
     setCards(userEditsCard);
     saveCards(userEditsCard);
   }
+
+
 
   function turbineData() {
     return cards
@@ -65,7 +82,12 @@ const IssueBoard = () => {
   return (
     <div className="container flex justify-center w-full mx-auto mb-10">
       <div className="content flex flex-col items-center w-full max-w-7xl px-4 mt-8">
-        <Dashboard onCreateCard={addCard} counts={counts} />
+        <Dashboard 
+        onCreateCard={addCard} 
+        counts={counts}
+        search={search}
+        onSearchChange={setSearch}
+        />
 
         <div className="grid w-full gap-6 grid-cols-[repeat(auto-fill,minmax(min(100%,18rem),1fr))]">
           {turbineData()}
