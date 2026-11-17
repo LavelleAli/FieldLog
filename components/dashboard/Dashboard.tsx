@@ -2,7 +2,7 @@
 
 import AddCardModal from "../modalcontrol/AddCardModal";
 import { Turbine } from "@/data/Fleetdata";
-
+import FilterModal from "../modalcontrol/FilterModal";
 
 const Dashboard = ({
   onCreateCard,
@@ -19,8 +19,6 @@ const Dashboard = ({
   search: string;
   onSearchChange: (text: string) => void;
 }) => {
-
-
   return (
     <div className="w-full  border rounded-md p-4 mb-20 ">
       <div className="flex flex-col justify-around gap-12 ml-4">
@@ -57,7 +55,7 @@ const Dashboard = ({
 
           <div className="flex flex-col items-center ">
             <div className="flex items-center gap-8 mr-10 ">
-              Filter
+              <FilterModal />
               <AddCardModal onCreateCard={onCreateCard} />
             </div>
           </div>
