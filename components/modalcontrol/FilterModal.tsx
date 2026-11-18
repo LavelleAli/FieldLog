@@ -72,7 +72,7 @@ const FilterModal = () => {
             <div className="flex flex-col ">
               <label htmlFor="low">
                 Low:
-                <input type="checkbox" id="status" name="open" value="status" />
+                <input type="checkbox" id="low" name="low" value="low" />
               </label>
             </div>
             <div>
@@ -80,9 +80,9 @@ const FilterModal = () => {
                 Medium:
                 <input
                   type="checkbox"
-                  id="status"
-                  name="in progress"
-                  value="status"
+                  id="medium"
+                  name="medium"
+                  value="medium"
                 />
               </label>
             </div>
@@ -91,9 +91,9 @@ const FilterModal = () => {
                 High:
                 <input
                   type="checkbox"
-                  id="status"
-                  name="resolved"
-                  value="status"
+                  id="high"
+                  name="high"
+                  value="high"
                 />
               </label>
             </div>

@@ -7,30 +7,24 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { loadCards, saveCards } from "@/data/CardStorage";
 
-
 const IssueBoard = () => {
   const [addCards, setAddCards] = useState(8);
   const [cards, setCards] = useState<Turbine[]>(() => loadCards() ?? fieldData);
   const [search, setSearch] = useState("");
   const userText = search.trim().toLowerCase();
 
-  const showResults = cards.filter((card) => 
-    card.title || 
-    card.updatedAt || 
-    card.equipment || 
-    card.notes || 
-    card.priority ||
-    card.type ||
-    card.status);
+  const showResults = cards.filter(
+    (card) =>
+      card.title.toLowerCase().includes(userText) ||
+      card.equipment.toLowerCase().includes(userText) ||
+      card.notes.toLowerCase().includes(userText),
+  );
 
   const counts = {
-      open: cards.filter((card) => card.status === "open").length,
-      inProgress: cards.filter((card) => card.status === "in progress").length,
-      resolved: cards.filter((card) => card.status === "resolved").length,
-    };
-
-
-   
+    open: cards.filter((card) => card.status === "open").length,
+    inProgress: cards.filter((card) => card.status === "in progress").length,
+    resolved: cards.filter((card) => card.status === "resolved").length,
+  };
 
   function addCard(card: Turbine) {
     const next = [card, ...cards];
@@ -40,22 +34,24 @@ const IssueBoard = () => {
 
   function updateCardStatus(id: string, status: Turbine["status"]) {
     const now = new Date().toISOString();
-    const userCardSelected = cards.map((card) => card.id === id ? {...card, status: status, updatedAt: now } : card);
+    const userCardSelected = cards.map((card) =>
+      card.id === id ? { ...card, status: status, updatedAt: now } : card,
+    );
     setCards(userCardSelected);
     saveCards(userCardSelected);
   }
 
   function editedCards(edit: Turbine) {
-    const now = new Date().toISOString()
-    const userEditsCard = cards.map((card) => card.id === edit.id ? {...edit, updatedAt: now } : card);
+    const now = new Date().toISOString();
+    const userEditsCard = cards.map((card) =>
+      card.id === edit.id ? { ...edit, updatedAt: now } : card,
+    );
     setCards(userEditsCard);
     saveCards(userEditsCard);
   }
 
-
-
   function turbineData() {
-    return cards
+    return showResults
       .slice(0, addCards)
       .map((turbine, idx) => (
         <AssessmentCards
@@ -67,7 +63,6 @@ const IssueBoard = () => {
         />
       ));
   }
-
 
   useGSAP(() => {
     gsap.from(".cardsAdded", {
@@ -82,18 +77,18 @@ const IssueBoard = () => {
   return (
     <div className="container flex justify-center w-full mx-auto mb-10">
       <div className="content flex flex-col items-center w-full max-w-7xl px-4 mt-8">
-        <Dashboard 
-        onCreateCard={addCard} 
-        counts={counts}
-        search={search}
-        onSearchChange={setSearch}
+        <Dashboard
+          onCreateCard={addCard}
+          counts={counts}
+          search={search}
+          onSearchChange={setSearch}
         />
 
         <div className="grid w-full gap-6 grid-cols-[repeat(auto-fill,minmax(min(100%,18rem),1fr))]">
           {turbineData()}
         </div>
 
-        {addCards < cards.length && (
+        {addCards < showResults.length && (
           <button
             className="mt-4 border rounded-md p-2 text-sm"
             onClick={() => setAddCards((prev) => prev + 4)}
