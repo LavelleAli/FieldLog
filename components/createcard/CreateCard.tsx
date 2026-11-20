@@ -61,10 +61,10 @@ export const CreateCard = ({
           <button
             type="button"
             aria-label="Close"
-            className="absolute top-4 right-5 cursor-pointer hover:scale-150 transition-all duration-500"
+            className="absolute top-4 right-5 w-4 h-4 cursor-pointer rounded-full bg-red-500 hover:shadow-[0_0_10px] hover:shadow-red-500 transition-all duration-300"
             onClick={closeDialog}
           >
-            X
+            
           </button>
 
           <div className="flex justify-center items-center mb-4">

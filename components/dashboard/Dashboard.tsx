@@ -4,11 +4,16 @@ import AddCardModal from "../modalcontrol/AddCardModal";
 import { Turbine } from "@/data/Fleetdata";
 import FilterModal from "../modalcontrol/FilterModal";
 
+
 const Dashboard = ({
   onCreateCard,
   counts,
   search,
   onSearchChange,
+  statusArray,
+  statusToggle,
+  priorityArray,
+  priorityToggle,
 }: {
   onCreateCard: (card: Turbine) => void;
   counts: {
@@ -17,7 +22,11 @@ const Dashboard = ({
     resolved: number;
   };
   search: string;
-  onSearchChange: (text: string) => void;
+  onSearchChange: ( text: string ) => void;
+  statusArray: Turbine["status"][];
+  statusToggle: (text: Turbine["status"]) => void;
+  priorityArray: Turbine["priority"][];
+  priorityToggle: (text: Turbine["priority"]) => void;
 }) => {
   return (
     <div className="w-full  border rounded-md p-4 mb-20 ">
@@ -55,7 +64,12 @@ const Dashboard = ({
 
           <div className="flex flex-col items-center ">
             <div className="flex items-center gap-8 mr-10 ">
-              <FilterModal />
+              <FilterModal
+              statusArray={statusArray}
+              statusToggle={statusToggle}
+              priorityArray={priorityArray}
+              priorityToggle={priorityToggle}
+              />
               <AddCardModal onCreateCard={onCreateCard} />
             </div>
           </div>

@@ -12,14 +12,18 @@ const IssueBoard = () => {
   const [cards, setCards] = useState<Turbine[]>(() => loadCards() ?? fieldData);
   const [search, setSearch] = useState("");
   const userText = search.trim().toLowerCase();
-
+  const [statusSelect, setStatusSelect] = useState<Turbine["status"][]>([]);
+  const [prioritySelect, setPrioritySelect] = useState<Turbine["priority"][]>(
+    [],
+  );
   const showResults = cards.filter(
     (card) =>
-      card.title.toLowerCase().includes(userText) ||
-      card.equipment.toLowerCase().includes(userText) ||
-      card.notes.toLowerCase().includes(userText),
+      (card.title.toLowerCase().includes(userText) ||
+        card.equipment.toLowerCase().includes(userText) ||
+        card.notes.toLowerCase().includes(userText)) &&
+      (statusSelect.length === 0 || statusSelect.includes(card.status)) &&
+      (prioritySelect.length === 0 || prioritySelect.includes(card.priority)),
   );
-
   const counts = {
     open: cards.filter((card) => card.status === "open").length,
     inProgress: cards.filter((card) => card.status === "in progress").length,
@@ -39,6 +43,22 @@ const IssueBoard = () => {
     );
     setCards(userCardSelected);
     saveCards(userCardSelected);
+  }
+
+  function statusFilter(status: Turbine["status"]) {
+    setStatusSelect(
+      statusSelect.includes(status)
+        ? statusSelect.filter((checkBox) => checkBox !== status)
+        : [status, ...statusSelect],
+    );
+  }
+
+  function priorityFilter(priority: Turbine["priority"]) {
+    setPrioritySelect(
+      prioritySelect.includes(priority)
+        ? prioritySelect.filter((priorityBox) => priorityBox !== priority)
+        : [priority, ...prioritySelect],
+    );
   }
 
   function editedCards(edit: Turbine) {
@@ -82,6 +102,10 @@ const IssueBoard = () => {
           counts={counts}
           search={search}
           onSearchChange={setSearch}
+          statusArray={statusSelect}
+          statusToggle={statusFilter}
+          priorityArray={prioritySelect}
+          priorityToggle={priorityFilter}
         />
 
         <div className="grid w-full gap-6 grid-cols-[repeat(auto-fill,minmax(min(100%,18rem),1fr))]">

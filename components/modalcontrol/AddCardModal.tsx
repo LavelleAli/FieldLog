@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { CreateCard } from "../createcard/CreateCard";
 import { Turbine } from "@/data/Fleetdata";
-
+import FadeIn from "../animationbank/FadeIn";
 
 const AddCardModal = ({
   onCreateCard,
