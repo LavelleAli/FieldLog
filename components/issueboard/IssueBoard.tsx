@@ -8,6 +8,8 @@ import { useGSAP } from "@gsap/react";
 import { loadCards, saveCards } from "@/data/CardStorage";
 
 const IssueBoard = () => {
+
+  // ========== Variable Dictionary ============
   const [addCards, setAddCards] = useState(8);
   const [cards, setCards] = useState<Turbine[]>(() => loadCards() ?? fieldData);
   const [search, setSearch] = useState("");
@@ -29,49 +31,18 @@ const IssueBoard = () => {
     inProgress: cards.filter((card) => card.status === "in progress").length,
     resolved: cards.filter((card) => card.status === "resolved").length,
   };
+// ========== End Variable Dictionary ============
 
-  function addCard(card: Turbine) {
-    const next = [card, ...cards];
-    setCards(next);
-    saveCards(next);
-  }
+// ============ Function List ==========
 
-  function updateCardStatus(id: string, status: Turbine["status"]) {
-    const now = new Date().toISOString();
-    const userCardSelected = cards.map((card) =>
-      card.id === id ? { ...card, status: status, updatedAt: now } : card,
-    );
-    setCards(userCardSelected);
-    saveCards(userCardSelected);
-  }
-
-  function statusFilter(status: Turbine["status"]) {
-    setStatusSelect(
-      statusSelect.includes(status)
-        ? statusSelect.filter((checkBox) => checkBox !== status)
-        : [status, ...statusSelect],
-    );
-  }
-
-  function priorityFilter(priority: Turbine["priority"]) {
-    setPrioritySelect(
-      prioritySelect.includes(priority)
-        ? prioritySelect.filter((priorityBox) => priorityBox !== priority)
-        : [priority, ...prioritySelect],
-    );
-  }
-
-  function editedCards(edit: Turbine) {
-    const now = new Date().toISOString();
-    const userEditsCard = cards.map((card) =>
-      card.id === edit.id ? { ...edit, updatedAt: now } : card,
-    );
-    setCards(userEditsCard);
-    saveCards(userEditsCard);
-  }
-
+// -------- Render Cards ---------
   function turbineData() {
-    return showResults
+    const sortedResults = [...showResults];
+    return sortedResults
+      .sort(
+        (a, b) =>
+          new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+      )
       .slice(0, addCards)
       .map((turbine, idx) => (
         <AssessmentCards
@@ -82,7 +53,62 @@ const IssueBoard = () => {
           onEditCard={editedCards}
         />
       ));
-  }
+  };
+
+  function addCard(card: Turbine) {
+    const next = [card, ...cards];
+    setCards(next);
+    saveCards(next);
+  };
+// -------- End Render Cards ---------
+
+// ------- Edit Cards ----------
+  function editedCards(edit: Turbine) {
+    const now = new Date().toISOString();
+    const userEditsCard = cards.map((card) =>
+      card.id === edit.id ? { ...edit, updatedAt: now } : card,
+    );
+    setCards(userEditsCard);
+    saveCards(userEditsCard);
+  };
+
+  function updateCardStatus(id: string, status: Turbine["status"]) {
+    const now = new Date().toISOString();
+    const userCardSelected = cards.map((card) =>
+      card.id === id ? { ...card, status: status, updatedAt: now } : card,
+    );
+    setCards(userCardSelected);
+    saveCards(userCardSelected);
+  };
+// ------- End Edit Cards ----------
+
+// ----------Filter Cards ----------
+  function statusFilter(status: Turbine["status"]) {
+    setStatusSelect(
+      statusSelect.includes(status)
+        ? statusSelect.filter((checkBox) => checkBox !== status)
+        : [status, ...statusSelect],
+    );
+  };
+
+  function priorityFilter(priority: Turbine["priority"]) {
+    setPrioritySelect(
+      prioritySelect.includes(priority)
+        ? prioritySelect.filter((priorityBox) => priorityBox !== priority)
+        : [priority, ...prioritySelect],
+    );
+  };
+
+  function clearFilters() {
+    setStatusSelect([]);
+    setPrioritySelect([]);
+    setSearch("");  
+  };
+
+// ----------Filter Cards ----------
+
+
+// ============ End Function List ==========
 
   useGSAP(() => {
     gsap.from(".cardsAdded", {
@@ -108,9 +134,31 @@ const IssueBoard = () => {
           priorityToggle={priorityFilter}
         />
 
-        <div className="grid w-full gap-6 grid-cols-[repeat(auto-fill,minmax(min(100%,18rem),1fr))]">
-          {turbineData()}
-        </div>
+        {cards.length === 0 ? (
+          <div role="status">
+            <p>
+              User has no issues listed. Click Add Card+ to create new issue
+              items.{" "}
+            </p>
+          </div>
+        ) : showResults.length === 0 ? (
+          <div role="status" className="flex flex-col items-center text-center gap-4">
+            <p>
+              No items match your search. <br /> Try clearing your filters
+            </p>
+            <button
+            type="button"
+            className="border rounded-md p-2 hover:border-accent hover:bg-fairwindblue transition-colors duration-500 cursor-pointer"
+            onClick={clearFilters}
+            >
+              Clear Filters
+            </button>
+          </div>
+        ) : (
+          <div className="grid w-full gap-6 grid-cols-[repeat(auto-fill,minmax(min(100%,18rem),1fr))]">
+            {turbineData()}
+          </div>
+        )}
 
         {addCards < showResults.length && (
           <button
