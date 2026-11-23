@@ -55,7 +55,7 @@ const EditCards = ({
     <dialog
       ref={dialogRef}
         onClose={onClose}
-      aria-labelledby="create-card-heading"
+      aria-labelledby="edit-card-heading"
       className="m-auto bg-fairwindblue/90 text-foreground rounded-xl p-6 border border-accent shadow-[0_0_8px] shadow-accent backdrop:bg-black/50"
     >
       <div className="flex flex-col items-center">
@@ -70,7 +70,7 @@ const EditCards = ({
           </button>
 
           <div className="flex justify-center items-center mb-4">
-            <h1 id="create-card-heading" className="text-2xl mb-2 font-bold">
+            <h1 id="edit-card-heading" className="text-2xl mb-2 font-bold">
               Edit Card
             </h1>
           </div>
