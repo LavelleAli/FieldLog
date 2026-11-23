@@ -34,9 +34,16 @@ const AssessmentCards = ({
         </span>
 
         <button
-          className="w-2 h-2 rounded-2xl bg-white hover:bg-green-500 transition-color duration-500"
+          type="button"
+          aria-label={`Edit ${turbine.title}: ${turbine.equipment}`}
+          className="group flex w-6 h-6 shrink-0 items-center justify-center rounded-full cursor-pointer"
           onClick={() => setIsEditCardOpen(true)}
-        ></button>
+        >
+          <span
+            aria-hidden="true"
+            className="w-2 h-2 rounded-full bg-white group-hover:bg-green-500 transition-colors duration-500"
+          ></span>
+        </button>
       </header>
       {isEditCardOpen && (
         <EditCards
