@@ -1,5 +1,5 @@
 import {expect, test} from "vitest";
-import { loadCards, saveCards } from "./CardStorage";
+import { loadCards, saveCards } from './CardStorage';
 import { Turbine } from './Fleetdata';
 
 const cardObject: Turbine[] = [{
@@ -14,17 +14,28 @@ const cardObject: Turbine[] = [{
     updatedAt: "2026-10-02T11:52:00.000Z",
   }];
 
-
 test("returns null when nothing is saved", () => {
     const results = loadCards();
-
     expect(results).toBe(null);
 });
 
 test("returns a saved card when cards are saved", () => {
-
     saveCards(cardObject);
     const results = loadCards();
-
     expect(results).toEqual(cardObject)
+});
+
+test("returns null when the saved data is not valid JSON",() => {
+    localStorage.setItem("fieldlog-cards", "not valid json");
+    const results = loadCards();   
+    expect(results).toBe(null)
+});
+
+test("returns null when updatedAt is not a date", () => {  
+    const badCard = {...cardObject[0], updatedAt: "Ain nuthin but a G thang" } ;
+    const mixedCards = [cardObject[0], badCard ];
+    saveCards(mixedCards)
+    const results = loadCards();
+
+    expect(results).toBe(null);
 });
