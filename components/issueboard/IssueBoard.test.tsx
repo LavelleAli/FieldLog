@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { queryByRole, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { saveCards } from "@/data/CardStorage";
 import { Turbine } from "@/data/Fleetdata";
 import userEvent from "@testing-library/user-event";
@@ -62,4 +62,4 @@ test("Displays cards that match search query while retaining card count displaye
  expect(screen.getByText("Open: 1")).toBeInTheDocument();
  expect(screen.getByText("Resolved: 1")).toBeInTheDocument();
  
-})
+});
