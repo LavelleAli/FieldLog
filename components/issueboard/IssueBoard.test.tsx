@@ -1,9 +1,11 @@
 import { expect, test } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { queryByRole, render, screen } from "@testing-library/react";
 import { saveCards } from "@/data/CardStorage";
 import { Turbine } from "@/data/Fleetdata";
 import userEvent from "@testing-library/user-event";
 import IssueBoard from "./IssueBoard";
+
+
 
 
 const openCard: Turbine = {
@@ -17,6 +19,9 @@ const openCard: Turbine = {
   createdAt: "2026-10-01T10:00:00.000Z",
   updatedAt: "2026-10-01T10:00:00.000Z",
 };
+
+
+
 
 test("shows a saved card", () => {
   saveCards([openCard]);
@@ -39,3 +44,22 @@ test("User changes card status, dropdown changes to selected value, dashboard co
   expect(screen.getByText("Open: 0")).toBeInTheDocument();
   expect(screen.getByText("Resolved: 1")).toBeInTheDocument();
 });
+
+test("Displays cards that match search query while retaining card count displayed on dashboard", async () => {
+  const resolvedCard: Turbine = {...openCard, 
+    id: "test-2", 
+    title: "WT-200", 
+    status: "resolved"
+  };
+  saveCards([openCard, resolvedCard]);
+  render(<IssueBoard/>);
+  const user = userEvent.setup();
+  const searchbox = screen.getByRole("searchbox");
+  await user.type(searchbox, "WT-100")
+  
+ expect(screen.getByRole("heading", {name: openCard.title})).toBeInTheDocument();
+ expect(screen.queryByRole("heading", { name: resolvedCard.title})).not.toBeInTheDocument();
+ expect(screen.getByText("Open: 1")).toBeInTheDocument();
+ expect(screen.getByText("Resolved: 1")).toBeInTheDocument();
+ 
+})
